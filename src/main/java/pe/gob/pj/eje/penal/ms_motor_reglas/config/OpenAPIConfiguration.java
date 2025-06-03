@@ -12,11 +12,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @Schema(hidden = true)
 @OpenAPIDefinition(
-        info = @Info(title = "Mesa de Partes Física", version = "1",
-                contact = @Contact(name = "developer", email = "example@example.com", url = "http://localhost:10104"),
-                description = "Servicios del Módulo de la Mesa de Partes Física"))
+        info = @Info(title = "API Motor de Reglas para JUSPRO", version = "1",
+                contact = @Contact(name = "Equipo de Desarrollo", email = "desarrollo@gob.pe", url = "http://localhost:10104"),
+                description = "API para la gestión del motor de reglas del sistema JUSPRO"))
 public class OpenAPIConfiguration {
-
     @Bean
     public OpenAPI customizeOpenAPI() {
         final String securitySchemeName = "bearerAuth";

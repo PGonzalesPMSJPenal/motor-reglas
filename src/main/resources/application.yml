@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: ms-reglas-negocio
+  datasource:
+    url: jdbc:postgresql://localhost:5432/jusprodemo
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      auto-commit: false  # Desactiva auto-commit
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+#  servlet:
+#    multipart:
+#      max-file-size: 10MB
+#      max-request-size: 10MB
+logging:
+  level:
+    org:
+      springframework:
+        data: INFO
+        web: INFO
+      drools: DEBUG  # Establece el nivel de logging de Drools a DEBUG
+  pattern:
+    console: "%d{HH:mm:ss} %-5p [%t] %c{2} - %m%n"  # Formato para consola
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /api-docs
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always

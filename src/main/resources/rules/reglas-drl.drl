@@ -1,0 +1,74 @@
+package rules;
+import pe.gob.pj.eje.penal.ms_motor_reglas.model.Expediente;
+// Regla para cambiar de "Pendientes" a "Por resolver en audiencia"
+rule "Cambio a Por resolver en audiencia"
+    // Mayor prioridad (se ejecuta primero)
+    salience 100
+    no-loop true
+    when
+        $expediente: Expediente(
+            bandejaActual == "Pendientes",
+            actoProcesalId == "AUTO_PROGRAMA_AUDIENCIA",
+            estado == "FIRMADO"
+        )
+    then
+        $expediente.setBandejaDestino("Por resolver en audiencia");
+        $expediente.setReglaId(1L);
+        $expediente.setNombreRegla("Cambio a Por resolver en audiencia");
+        System.out.println("Regla aplicada: Cambio a Por resolver en audiencia");
+        System.out.println("Expediente: " + $expediente.getNumeroExpediente());
+        System.out.println("Bandeja actual: " + $expediente.getBandejaActual());
+        System.out.println("Bandeja destino: " + $expediente.getBandejaDestino());
+        update($expediente);
+end
+
+// Regla para cambiar a "Calificar" cuando es un tipo de proceso "Especial"
+rule "Cambio a Calificar para proceso Especial"
+    salience 90
+    no-loop true
+    when
+        $expediente: Expediente(
+            getTipoResolucion == "Especial",
+            bandejaActual == "Pendientes",
+            actoProcesalId == "AUTO_CALIFICACION",
+            estado == "FIRMADO",
+            bandejaDestino == null
+        )
+    then
+        $expediente.setBandejaDestino("Calificar");
+        $expediente.setReglaId(2L);
+        $expediente.setNombreRegla("Cambio a Calificar para proceso Especial");
+        System.out.println("Regla aplicada: Cambio a Calificar para proceso Especial");
+        System.out.println("Expediente: " + $expediente.getNumeroExpediente());
+        System.out.println("Bandeja actual: " + $expediente.getBandejaActual());
+        System.out.println("Bandeja destino: " + $expediente.getBandejaDestino());
+        update($expediente);
+end
+
+// Regla por defecto cuando no se ha encontrado ninguna regla específica
+rule "Regla por defecto - Sin cambio de bandeja"
+    salience -100
+    no-loop true
+    when
+        $expediente: Expediente(bandejaDestino == null)
+    then
+        System.out.println("No se encontró regla para el expediente: " + $expediente.getNumeroExpediente());
+        System.out.println("Bandeja actual: " + $expediente.getBandejaActual());
+        System.out.println("Acto procesal: " + $expediente.getActoProcesalId());
+end
+
+rule "rule_03d74110d5634820"
+    salience 100
+    no-loop true
+    when
+        $expediente: Expediente(bandejaActual == "Por atender", estado == "FIRMADO", getTipoResolucion == "AUTO",
+        actoProcesalId == "AUTO DE CITACION A AUDIENCIA", bandejaDestino == null)
+    then
+        $expediente.setBandejaDestino("Por resolver en despacho");
+        $expediente.setReglaId(3L);
+        $expediente.setNombreRegla("Regla Prueba Demo");
+        System.out.println("Regla aplicada: Regla Prueba Demo");
+        System.out.println("Expediente: " + $expediente.getNumeroExpediente());
+        System.out.println("Bandeja destino: " + $expediente.getBandejaDestino());
+        update($expediente);
+    end
