@@ -1,4 +1,5 @@
 package pe.gob.pj.eje.penal.ms_motor_reglas.controller;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +12,8 @@ import pe.gob.pj.eje.penal.ms_motor_reglas.dto.request.BuilderReglaDTORequest;
 import pe.gob.pj.eje.penal.ms_motor_reglas.dto.request.ExpedienteDTORequest;
 import pe.gob.pj.eje.penal.ms_motor_reglas.dto.response.*;
 import pe.gob.pj.eje.penal.ms_motor_reglas.service.ConstructorReglaService;
+
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 /**
@@ -32,7 +35,7 @@ public class ConstructorReglaController {
     }
 
     @GetMapping("/expediente")
-    public ResponseEntity<List<ComboDTOResponseExpediente>> obtenerExpedientes() {
+    public ResponseEntity<List<ComboDTOResponseExpediente>> obtenerExpedientes() throws IOException {
         List<ComboDTOResponseExpediente> catalogos = constructorService.obtenerExpedientes();
         return ResponseEntity.ok(catalogos);
     }
@@ -139,7 +142,6 @@ public class ConstructorReglaController {
         ResultadoEvaluacionDTOResponse resultado = constructorService.evaluarExpediente(expedienteDTO);
         return ResponseEntity.ok(resultado);
     }
-
     /**
      * Simula la aplicación de una regla para verificar su funcionamiento
      */

@@ -121,8 +121,20 @@
 			<artifactId>spring-kafka-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>
 
+		<dependency>
+			<groupId>pe.gob.pj.core</groupId>
+			<artifactId>pe-gob-pj-core-client-lb</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>pj.eje.penal.data.abstraction.common</groupId>
+			<artifactId>data</artifactId>
+			<version>0.0.4-SNAPSHOT</version>
+		</dependency>
+
+	</dependencies>
 	<build>
 		<plugins>
 			<plugin>

@@ -29,7 +29,7 @@ public class ReglaDrools {
     // La regla completa en formato DRL (Drools Rule Language)
     @Lob
     @Column(name = "regla_drl")
-    private String reglaDrl; // Cambiar el tipo a Blob
+    private String reglaDrl;
     // Datos de auditoría
     @Column(name = "fecha_creacion")
     private LocalDateTime fechaCreacion;

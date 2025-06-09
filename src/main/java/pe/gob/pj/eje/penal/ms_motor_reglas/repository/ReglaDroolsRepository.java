@@ -31,13 +31,13 @@ public interface ReglaDroolsRepository extends JpaRepository<ReglaDrools, Long> 
             "x.nombre) from Especialidad x")
     List<ComboDTOResponse> findAllEspecialidad();
 
-    @Query("SELECT new pe.gob.pj.eje.penal.ms_motor_reglas.dto.response.ComboDTOResponseExpediente(" +
+    /*@Query("SELECT new pe.gob.pj.eje.penal.ms_motor_reglas.dto.response.ComboDTOResponseExpediente(" +
             "x.numeroExpediente, " +
             "x.tipoResolucion, " +
             "x.actoProcesal, " +
             "x.sumilla, " +
             "x.bandejaOrigen) from ExpedienteSimulacion x")
-    List<ComboDTOResponseExpediente> findAllExpediente();
+    List<ComboDTOResponseExpediente> findAllExpediente();*/
 
     /**
      * Busca reglas que coincidan con los criterios de filtro
