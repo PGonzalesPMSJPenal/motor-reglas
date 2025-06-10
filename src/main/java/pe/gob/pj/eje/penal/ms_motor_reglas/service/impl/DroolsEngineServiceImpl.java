@@ -11,7 +11,6 @@ import org.kie.api.runtime.KieSession;
 import org.springframework.stereotype.Service;
 import pe.gob.pj.eje.penal.ms_motor_reglas.model.ReglaDrools;
 import pe.gob.pj.eje.penal.ms_motor_reglas.repository.ReglaDroolsRepository;
-
 import java.util.List;
 @Service
 @Slf4j
@@ -23,39 +22,28 @@ public class DroolsEngineServiceImpl {
     }
     public KieSession createKieSessionDinamico() {
         KieFileSystem kieFileSystem = kieServices.newKieFileSystem();
-
         List<ReglaDrools> reglas = reglaDroolsRepository.findByActivoTrue();
         log.info("REGLAS DESDE BD: {}", reglas);
-
         for (ReglaDrools regla : reglas) {
             String drl = regla.getReglaDrl();
             if (drl != null && !drl.isEmpty()) {
                 kieFileSystem.write("src/main/resources/rules/regla_" + regla.getId() + ".drl", drl);
             }
         }
-
         // No hace falta setear ReleaseId personalizado si no vas a instalarlo en un repositorio
         // kieFileSystem.generateAndWritePomXML(...);
-
         KieBuilder kieBuilder = kieServices.newKieBuilder(kieFileSystem).buildAll();
-
         if (kieBuilder.getResults().hasMessages()) {
             log.error("Errores al compilar reglas: {}", kieBuilder.getResults().getMessages());
             throw new RuntimeException("Errores en reglas Drools");
         }
-
         // Usar el módulo compilado en memoria
         KieContainer kieContainer = kieServices.newKieContainer(kieServices.getRepository().getDefaultReleaseId());
-
         KieBaseConfiguration baseConfig = kieServices.newKieBaseConfiguration();
         baseConfig.setOption(EventProcessingOption.STREAM);
-
         KieBase kieBase = kieContainer.newKieBase(baseConfig);
         return kieBase.newKieSession();
     }
-
-
-
     /*public KieSession createKieSessionDinamico() {
         KieFileSystem kieFileSystem = kieServices.newKieFileSystem();
         List<ReglaDrools> reglas = reglaDroolsRepository.findByActivoTrue();

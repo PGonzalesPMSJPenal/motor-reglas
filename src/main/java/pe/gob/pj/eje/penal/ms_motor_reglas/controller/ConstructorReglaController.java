@@ -12,7 +12,6 @@ import pe.gob.pj.eje.penal.ms_motor_reglas.dto.request.BuilderReglaDTORequest;
 import pe.gob.pj.eje.penal.ms_motor_reglas.dto.request.ExpedienteDTORequest;
 import pe.gob.pj.eje.penal.ms_motor_reglas.dto.response.*;
 import pe.gob.pj.eje.penal.ms_motor_reglas.service.ConstructorReglaService;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -33,13 +32,11 @@ public class ConstructorReglaController {
         Map<String, List<String>> catalogos = constructorService.obtenerCatalogos();
         return ResponseEntity.ok(catalogos);
     }
-
     @GetMapping("/expediente")
     public ResponseEntity<List<ComboDTOResponseExpediente>> obtenerExpedientes() throws IOException {
         List<ComboDTOResponseExpediente> catalogos = constructorService.obtenerExpedientes();
         return ResponseEntity.ok(catalogos);
     }
-
     /**
      * Obtiene tipos de operadores disponibles
      */

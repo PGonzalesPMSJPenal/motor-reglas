@@ -4,33 +4,27 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import pe.gob.pj.eje.penal.ms_motor_reglas.dto.response.ComboDTOResponse;
-import pe.gob.pj.eje.penal.ms_motor_reglas.dto.response.ComboDTOResponseExpediente;
 import pe.gob.pj.eje.penal.ms_motor_reglas.dto.response.ReglaDroolsDTOResponse;
 import pe.gob.pj.eje.penal.ms_motor_reglas.model.ReglaDrools;
 import java.util.List;
 @Repository
 public interface ReglaDroolsRepository extends JpaRepository<ReglaDrools, Long> {
-
     @Query("SELECT new pe.gob.pj.eje.penal.ms_motor_reglas.dto.response.ComboDTOResponse(" +
             "x.id, " +
             "x.nombre) from BandejaDestino x")
     List<ComboDTOResponse> findAllTipoBandeja();
-
     @Query("SELECT new pe.gob.pj.eje.penal.ms_motor_reglas.dto.response.ComboDTOResponse(" +
             "x.id, " +
             "x.nombre) from Responsable x")
     List<ComboDTOResponse> findAllTipoResponsable();
-
     @Query("SELECT new pe.gob.pj.eje.penal.ms_motor_reglas.dto.response.ComboDTOResponse(" +
             "x.id, " +
             "x.nombre) from Atributos x")
     List<ComboDTOResponse> findAllAtributos();
-
     @Query("SELECT new pe.gob.pj.eje.penal.ms_motor_reglas.dto.response.ComboDTOResponse(" +
             "x.id, " +
             "x.nombre) from Especialidad x")
     List<ComboDTOResponse> findAllEspecialidad();
-
     /*@Query("SELECT new pe.gob.pj.eje.penal.ms_motor_reglas.dto.response.ComboDTOResponseExpediente(" +
             "x.numeroExpediente, " +
             "x.tipoResolucion, " +
@@ -38,7 +32,6 @@ public interface ReglaDroolsRepository extends JpaRepository<ReglaDrools, Long> 
             "x.sumilla, " +
             "x.bandejaOrigen) from ExpedienteSimulacion x")
     List<ComboDTOResponseExpediente> findAllExpediente();*/
-
     /**
      * Busca reglas que coincidan con los criterios de filtro
      */
@@ -70,16 +63,11 @@ public interface ReglaDroolsRepository extends JpaRepository<ReglaDrools, Long> 
             "r.activo, " +
             "r.version) FROM ReglaDrools r WHERE r.activo=TRUE")
     List<ReglaDroolsDTOResponse> findByAllActivo();
-
     List<ReglaDrools> findByActivoTrue();
-
-
-
     /**
      * Busca reglas por identificador
      *//*
     ReglaDrools findByIdentificador(String identificador);
-
     *//**
      * Busca reglas que coincidan con los criterios de filtro
      *//*
@@ -91,22 +79,18 @@ public interface ReglaDroolsRepository extends JpaRepository<ReglaDrools, Long> 
             @Param("tipoProceso") String tipoProceso,
             @Param("subProceso") String subProceso,
             @Param("actoProcesalId") String actoProcesalId);
-
     *//**
      * Busca reglas por nombre conteniendo texto (case insensitive)
      *//*
     List<ReglaDrools> findByNombreContainingIgnoreCase(String nombre);
-
     *//**
      * Busca reglas por bandeja origen
      *//*
     List<ReglaDrools> findByBandejaActual(String bandejaActual);
-
     *//**
      * Busca reglas por acto procesal
      *//*
     List<ReglaDrools> findByActoProcesalId(String actoProcesalId);
-
     *//**
      * Busca reglas por tipo de proceso y estado activo
      *//*

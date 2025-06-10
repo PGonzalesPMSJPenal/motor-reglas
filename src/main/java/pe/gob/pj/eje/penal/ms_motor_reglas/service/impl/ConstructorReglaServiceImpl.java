@@ -11,7 +11,6 @@ import org.kie.api.builder.ReleaseId;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.internal.io.ResourceFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pe.gob.pj.core.client.ClientHub;
@@ -30,7 +29,6 @@ import pe.gob.pj.eje.penal.ms_motor_reglas.model.PlantillaRegla;
 import pe.gob.pj.eje.penal.ms_motor_reglas.model.ReglaDrools;
 import pe.gob.pj.eje.penal.ms_motor_reglas.repository.ReglaDroolsRepository;
 import pe.gob.pj.eje.penal.ms_motor_reglas.service.ConstructorReglaService;
-
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -45,7 +43,8 @@ public class ConstructorReglaServiceImpl implements ConstructorReglaService {
     private final DroolsRuleGenerator droolsRuleGenerator;
     private final DroolsEngineServiceImpl droolsEngineService;
     private final ObjectMapper objectMapper;
-    private static final String URL_EXPEDIENTE = "http://192.168.31.81:5001/atencion-expediente";
+    private static final String URL_EXPEDIENTE = "http://192.168.30.45:5001/atencion-expediente";
+    // 192.168.30.45:5001
     @Override
     public Map<String, List<String>> obtenerCatalogos() {
         Map<String, List<String>> catalogos = new HashMap<>();
@@ -67,37 +66,28 @@ public class ConstructorReglaServiceImpl implements ConstructorReglaService {
                 .collect(Collectors.toList()));
         return catalogos;
     }
-
     @Override
     public List<ComboDTOResponseExpediente> obtenerExpedientes() throws IOException {
         IClient client = ClientHub.getInstance().getClient(ClientTypeEnum.FEIGN_CLIENT);
         HttpResponse response = client.get(URL_EXPEDIENTE);
-
         String jsonBody = response.getBody(); // ← Este es un String
         log.info("RESPONSE DE RETORNO: {}", jsonBody);
-
         // Primero, deserializa a JsonNode
         JsonNode rootNode = objectMapper.readTree(jsonBody);
-
         // Luego convierte a ApiResponse
         ApiResponse dto = objectMapper.treeToValue(rootNode, ApiResponse.class);
-
         // Validar que data no sea null
         if (dto.getData() == null || !dto.getData().isArray()) {
             log.warn("La respuesta no contiene una lista válida en 'data'");
             return Collections.emptyList();
         }
-
         // Convertir data (JsonNode) a List<ComboDTOResponseExpediente>
         List<ComboDTOResponseExpediente> expedientes = objectMapper
                 .readerForListOf(ComboDTOResponseExpediente.class)
                 .readValue(dto.getData().toString());
-
         log.info("Lista de expedientes mapeada correctamente: {}", expedientes.size());
-
         return expedientes;
     }
-
     @Override
     public List<OperadorDTOResponse> obtenerOperadores() {
         List<OperadorDTOResponse> operadores = new ArrayList<>();
@@ -485,9 +475,6 @@ public class ConstructorReglaServiceImpl implements ConstructorReglaService {
             kieSession.dispose(); // liberar recursos
         }
     }
-
-
-
     @Override
     public ResultadoSimulacionDTO simularRegla(SimulacionReglaDTO simulacion) {
         try {
@@ -544,35 +531,27 @@ public class ConstructorReglaServiceImpl implements ConstructorReglaService {
                     .build();
         }
     }
-
     /**
      * Crea una sesión Drools temporal para simulación
      */
     private KieSession crearSesionTemporalParaSimulacion(String drl) {
         KieServices kieServices = KieServices.Factory.get();
         KieFileSystem kieFileSystem = kieServices.newKieFileSystem();
-
         String drlPath = "src/main/resources/rules/temp_" + UUID.randomUUID().toString() + ".drl";
         kieFileSystem.write(drlPath, ResourceFactory.newByteArrayResource(drl.getBytes()));
-
         // Generar un ReleaseId personalizado
         ReleaseId releaseId = kieServices.newReleaseId("pe.gob.pj", "motor-reglas-simulacion", UUID.randomUUID().toString());
         kieFileSystem.generateAndWritePomXML(releaseId);
-
         KieBuilder kieBuilder = kieServices.newKieBuilder(kieFileSystem).buildAll();
         if (kieBuilder.getResults().hasMessages()) {
             throw new IllegalArgumentException("Error al compilar regla: " + kieBuilder.getResults().getMessages());
         }
-
         // Instalar en el repositorio
         kieServices.getRepository().addKieModule(kieBuilder.getKieModule());
-
         // Crear contenedor y sesión
         KieContainer kieContainer = kieServices.newKieContainer(releaseId);
         return kieContainer.newKieSession();
     }
-
-
     /*private KieSession crearSesionTemporalParaSimulacion(String drl) {
         KieServices kieServices = KieServices.Factory.get();
         KieFileSystem kieFileSystem = kieServices.newKieFileSystem();
@@ -593,18 +572,12 @@ public class ConstructorReglaServiceImpl implements ConstructorReglaService {
                 kieServices.getRepository().getDefaultReleaseId());
         return kieContainer.newKieSession();
     }*/
-
 }
-
-
-
-
 /*
 @Override
 @Transactional
 public List<ReglaDroolsDTO> importarReglas(byte[] excelBytes, String usuario) throws IOException {
     log.info("Importando reglas desde Excel");
-
     // Usar el importador de Excel
     List<PlantillaRegla> plantillas = excelRuleImporter.importarReglasDroolsDesdeExcel(excelBytes);
 

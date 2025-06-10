@@ -1,14 +1,12 @@
 package pe.gob.pj.eje.penal.ms_motor_reglas.model;
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.time.LocalDateTime;
 @Entity
-@Table(name = "reglas_drools", schema = "juspro_reglas")
+@Table(name = "reglas_drools", schema = "public")
 @Data
 @Builder
 @NoArgsConstructor

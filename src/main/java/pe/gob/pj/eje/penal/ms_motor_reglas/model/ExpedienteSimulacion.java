@@ -8,9 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 @Entity
-@Table(name = "mov_atencion_expediente", schema = "juspro_reglas")
+@Table(name = "mov_atencion_expediente", schema = "public")
 @Data
 @Builder
 @AllArgsConstructor

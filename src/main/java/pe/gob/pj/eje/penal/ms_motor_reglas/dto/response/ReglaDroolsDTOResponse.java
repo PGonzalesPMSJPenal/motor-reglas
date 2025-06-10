@@ -3,7 +3,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.time.LocalDateTime;
 @Data
 @Builder
@@ -22,7 +21,6 @@ public class ReglaDroolsDTOResponse {
     private String usuarioModificacion;
     private Boolean activo;
     private Integer version;
-
     public ReglaDroolsDTOResponse(Long id, String nombre, String descripcion, String documento, Integer prioridad, String reglaDrl, String usuarioCreacion, LocalDateTime fechaCreacion, Boolean activo, Integer version) {
         this.id = id;
         this.nombre = nombre;
@@ -35,5 +33,4 @@ public class ReglaDroolsDTOResponse {
         this.activo = activo;
         this.version = version;
     }
-
 }

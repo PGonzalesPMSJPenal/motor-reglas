@@ -1,11 +1,9 @@
 package pe.gob.pj.eje.penal.ms_motor_reglas.service;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import pe.gob.pj.eje.penal.ms_motor_reglas.dto.ResultadoSimulacionDTO;
 import pe.gob.pj.eje.penal.ms_motor_reglas.dto.SimulacionReglaDTO;
 import pe.gob.pj.eje.penal.ms_motor_reglas.dto.request.BuilderReglaDTORequest;
 import pe.gob.pj.eje.penal.ms_motor_reglas.dto.request.ExpedienteDTORequest;
 import pe.gob.pj.eje.penal.ms_motor_reglas.dto.response.*;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
