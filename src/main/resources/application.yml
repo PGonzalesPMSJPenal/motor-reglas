@@ -2,7 +2,7 @@ spring:
   application:
     name: ms-reglas-negocio
   datasource:
-    url: jdbc:postgresql://192.168.30.45:5434/postgres
+    url: jdbc:postgresql://localhost:5432/jusprodemo
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
@@ -42,3 +42,13 @@ management:
   endpoint:
     health:
       show-details: always
+#====== CQRS Configuration ======
+cqrs:
+  async:
+    enabled: true
+    core-pool-size: 5
+    max-pool-size: 100
+    queue-capacity: 25
+    keep-alive-seconds: 60
+server:
+  port: 8099
