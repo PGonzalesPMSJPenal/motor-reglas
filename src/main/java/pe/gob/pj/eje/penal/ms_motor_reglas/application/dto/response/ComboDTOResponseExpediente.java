@@ -12,4 +12,12 @@ public class ComboDTOResponseExpediente {
     private String archivo;
     private String nombreArchivo;
     private String uuid;
+    public ComboDTOResponseExpediente(String numeroExpediente,String tipoResolucion,
+                                      String actoProcesal,String sumilla,String bandejaOrigen){
+        this.numeroExpediente = numeroExpediente;
+        this.tipoResolucion = tipoResolucion;
+        this.actoProcesal = actoProcesal;
+        this.sumilla = sumilla;
+        this.bandejaOrigen = bandejaOrigen;
+    }
 }

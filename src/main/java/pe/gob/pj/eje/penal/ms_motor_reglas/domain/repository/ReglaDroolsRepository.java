@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import pe.gob.pj.eje.penal.ms_motor_reglas.application.dto.response.ComboDTOResponse;
+import pe.gob.pj.eje.penal.ms_motor_reglas.application.dto.response.ComboDTOResponseExpediente;
 import pe.gob.pj.eje.penal.ms_motor_reglas.application.dto.response.ReglaDroolsDTOResponse;
 import pe.gob.pj.eje.penal.ms_motor_reglas.infraestructure.model.ReglaDrools;
 import java.util.List;
@@ -25,13 +26,13 @@ public interface ReglaDroolsRepository extends JpaRepository<ReglaDrools, Long> 
             "x.id, " +
             "x.nombre) from Especialidad x")
     List<ComboDTOResponse> findAllEspecialidad();
-    /*@Query("SELECT new pe.gob.pj.eje.penal.ms_motor_reglas.dto.response.ComboDTOResponseExpediente(" +
+    @Query("SELECT new pe.gob.pj.eje.penal.ms_motor_reglas.application.dto.response.ComboDTOResponseExpediente(" +
             "x.numeroExpediente, " +
             "x.tipoResolucion, " +
             "x.actoProcesal, " +
             "x.sumilla, " +
             "x.bandejaOrigen) from ExpedienteSimulacion x")
-    List<ComboDTOResponseExpediente> findAllExpediente();*/
+    List<ComboDTOResponseExpediente> findAllExpediente();
     /**
      * Busca reglas que coincidan con los criterios de filtro
      */

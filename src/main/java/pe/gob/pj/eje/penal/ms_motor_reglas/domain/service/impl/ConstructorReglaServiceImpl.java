@@ -63,7 +63,8 @@ public class ConstructorReglaServiceImpl implements IConstructorReglaService {
     }
     @Override
     public List<ComboDTOResponseExpediente> obtenerExpedientes() throws IOException {
-        IClient client = ClientHub.getInstance().getClient(ClientTypeEnum.FEIGN_CLIENT);
+        return reglaDroolsRepository.findAllExpediente();
+        /*IClient client = ClientHub.getInstance().getClient(ClientTypeEnum.FEIGN_CLIENT);
         HttpResponse response = client.get(URL_EXPEDIENTE);
         String jsonBody = response.getBody(); // ← Este es un String
         log.info("RESPONSE DE RETORNO: {}", jsonBody);
@@ -81,7 +82,7 @@ public class ConstructorReglaServiceImpl implements IConstructorReglaService {
                 .readerForListOf(ComboDTOResponseExpediente.class)
                 .readValue(dto.getData().toString());
         log.info("Lista de expedientes mapeada correctamente: {}", expedientes.size());
-        return expedientes;
+        return expedientes;*/
     }
     @Override
     public List<OperadorDTOResponse> obtenerOperadores() {
