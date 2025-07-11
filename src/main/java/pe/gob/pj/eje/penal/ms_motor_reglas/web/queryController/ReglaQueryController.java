@@ -26,22 +26,22 @@ public class ReglaQueryController {
      * Obtiene catálogos para construir reglas (operadores, bandejas, etc.)
      */
     @GetMapping("/catalogos")
-    public ResponseEntity<Response> obtenerCatalogos() {
+    public ResponseEntity<Map<String, List<String>>> obtenerCatalogos() {
         Map<String, List<String>> catalogos = queryBus.send(new ListarCatalogoQuery());
-        return Response.getResponseOk(catalogos);
+        return ResponseEntity.ok(catalogos);
     }
     @GetMapping("/expediente")
-    public ResponseEntity<Response> obtenerExpedientes() throws IOException {
+    public ResponseEntity<List<ComboDTOResponseExpediente>> obtenerExpedientes() throws IOException {
         List<ComboDTOResponseExpediente> catalogos = queryBus.send(new ListarExpedienteQuery());
-        return Response.getResponseOk(catalogos);
+        return ResponseEntity.ok(catalogos);
     }
     /**
      * Obtiene tipos de operadores disponibles
      */
     @GetMapping("/operadores")
-    public ResponseEntity<Response> obtenerOperadores() {
+    public ResponseEntity<List<OperadorDTOResponse>> obtenerOperadores() {
         List<OperadorDTOResponse> operadores = queryBus.send(new ListarOperadoresQuery());
-        return Response.getResponseOk(operadores);
+        return ResponseEntity.ok(operadores);
     }
     /**
      * Obtiene todas las reglas

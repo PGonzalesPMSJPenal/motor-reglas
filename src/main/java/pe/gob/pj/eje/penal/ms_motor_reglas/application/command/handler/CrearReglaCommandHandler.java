@@ -1,10 +1,13 @@
 package pe.gob.pj.eje.penal.ms_motor_reglas.application.command.handler;
 
+import org.springframework.stereotype.Component;
+import pe.gob.pj.core.cqrs.annotations.CommandHandlerComponent;
 import pe.gob.pj.core.cqrs.command.CommandHandler;
 import pe.gob.pj.eje.penal.ms_motor_reglas.application.command.CrearReglaCommand;
 import pe.gob.pj.eje.penal.ms_motor_reglas.application.dto.response.ReglaDroolsDTOResponse;
 import pe.gob.pj.eje.penal.ms_motor_reglas.domain.service.IConstructorReglaService;
-
+@CommandHandlerComponent
+@Component
 public class CrearReglaCommandHandler implements CommandHandler<CrearReglaCommand, ReglaDroolsDTOResponse> {
     private final IConstructorReglaService constructorReglaService;
 
